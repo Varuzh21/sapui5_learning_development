@@ -1,7 +1,7 @@
 {
     "_version": "1.28.0",
     "sap.app": {
-        "id": "<...>",
+        "id": "sap.training.exc",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -17,15 +17,15 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "/sap/opu/odata4/sap/ux_ui_customer_o4/srvd/sap/ux_ui_customer/0001/",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "4.0"
-                }
+              "uri": "/sap/opu/odata4/sap/ux_ui_customer_o4/srvd/sap/ux_ui_customer/0001/",
+              "type": "OData",
+              "settings": {
+                "annotations": [],
+                "localUri": "localService/metadata.xml",
+                "odataVersion": "4.0"
+              }
             }
-        }
+          }
     },
     "sap.ui": {
         "technology": "UI5",
@@ -59,26 +59,29 @@
             }
         },
         "contentDensities": {
-            "compact": false,
+            "compact": true,
             "cozy": true
         },
         "models": {
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "<...>"
+                    "bundleName": "sap.training.exc.i18n.i18n",
+                    "supportedLocales": [""],
+                    "fallbackLocale": ""
                 }
             },
-            "ODataModel": {
-                "dataSource": "<...>",
+            "": {
+                "dataSource": "mainService",
                 "settings": {
-                    "synchronizationMode": "None",
-                    "operationMode": "Server",
-                    "autoExpandSelect": true,
-                    "earlyRequests": true
+                  "synchronizationMode": "None",
+                  "operationMode": "Server",
+                  "autoExpandSelect": true,
+                  "earlyRequests": true
                 }
-            }
+              }
         },
+        "handleValidation": true,
         "resources": {
             "css": [
                 {
@@ -87,19 +90,55 @@
             ]
         },
         "routing": {
-            "config": {
-                "routerClass": "sap.m.routing.Router",
-                "viewType": "XML",
-                "async": true,
-                "viewPath": "sap.training.exc.view",
-                "controlAggregation": "pages",
-                "controlId": "<...>"
+          "config": {
+            "routerClass": "sap.m.routing.Router",
+            "viewType": "XML",
+            "async": true,
+            "viewPath": "sap.training.exc.view",
+            "controlAggregation": "pages",
+            "controlId": "app",
+            "bypassed": {
+              "target": [
+                "notFound"
+              ]
+            }
+          },
+          "routes": [
+            {
+              "name": "overview",
+              "pattern": "",
+              "target": [
+                "overview"
+              ]
             },
-            "routes": [],
-            "targets": {}
+            {
+              "name": "detail",
+              "pattern": "detail/{customerId}",
+              "target": [
+                "detail"
+              ]
+            }
+          ],
+          "targets": {
+            "overview": {
+              "viewId": "overview",
+              "viewName": "Overview",
+              "viewLevel": 1
+            },
+            "detail": {
+              "viewId": "detail",
+              "viewName": "Detail",
+              "viewLevel": 2
+            },
+            "notFound": {
+              "viewId": "notFound",
+              "viewName": "NotFound",
+              "transition": "show"
+            }
+          }
         },
         "rootView": {
-            "viewName": "<...>",
+            "viewName": "sap.training.exc.view.App",
             "type": "XML",
             "async": true,
             "id": "App"
